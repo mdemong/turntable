@@ -17,3 +17,10 @@ Triangle::Triangle(array<int, 3> indices) {
 array<int, 3> Triangle::getIndices() {
 	return indices;
 }
+
+bool Triangle::intersect(const Ray & ray, glm::vec3 & point, glm::vec3 & normal) {
+     return false;
+}
+
+void Triangle::draw() {
+}

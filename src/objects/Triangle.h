@@ -1,6 +1,7 @@
 #pragma once
 using namespace std;
 
+#include "SceneObject.h"
 #include <array>
 
 /*
@@ -10,11 +11,14 @@ using namespace std;
 	A simple container class for a Triangle index list.
 */
 
-class Triangle {
+class Triangle : public SceneObject {
 	array<int, 3> indices;
 
 public:
 	Triangle(int index1, int index2, int index3);
 	Triangle(array<int, 3> indices);
 	array<int, 3> getIndices();
+     
+     bool intersect(const Ray &ray, glm::vec3 &point, glm::vec3 &normal);
+     void draw();
 };

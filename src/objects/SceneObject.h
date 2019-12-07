@@ -25,9 +25,13 @@ public:
      // Micah Demong - just changed this to be a pure virtual function
      virtual bool intersect(const Ray &ray, glm::vec3 &point, glm::vec3 &normal) = 0;
 
-     void applyTexture(ofImage img) {
-          this->texture = img;
-          bHasTexture = true;
+
+     void applyTexture(const ofImage img) {
+          // Ensuring that the image is valid before applying it
+          if (img.isAllocated()) {
+               this->texture = img;
+               bHasTexture = true;
+          }
      }
      
      virtual ofColor getColor(const glm::vec3 point) { return diffuseColor; }

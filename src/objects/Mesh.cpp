@@ -15,13 +15,13 @@ using namespace std;
 Mesh::Mesh()
 {
 	this->vertices = vector<glm::vec3>();
-	this->triangles = vector<Triangle>();
+	this->triangles = vector<Triangle *>();
 }
 
 Mesh::Mesh(string filepath) 
 {
 	this->vertices = vector<glm::vec3>();
-	this->triangles = vector<Triangle>();
+	this->triangles = vector<Triangle *>();
 
 	// File read operations referenced from http://www.cplusplus.com/doc/tutorial/files/
 
@@ -61,61 +61,68 @@ Mesh::Mesh(string filepath)
 			}
 		}
 
-		// Faces
-		else if (regex_match(line, regex("f[ 0-9//]+"))) {
+          // Faces
+          else if (regex_match(line, regex("f[ 0-9//]+"))) {
 
-			//cout << "FACE " << line << endl;
-			
-			auto shapeIndices = vector<int>();
+               //cout << "FACE " << line << endl;
 
-			string::const_iterator searchStart(line.cbegin());
-			smatch result;
+               auto shapeIndices = vector<int>();
 
-			// Iterating through "slash strings" (e.g. 770/936/777)
-			while (regex_search(searchStart, line.cend(), result, regex("[0-9/]+"))) {
-				smatch indexMatch;
-				string slashString = result[0];
+               string::const_iterator searchStart(line.cbegin());
+               smatch result;
 
-				// Just get the first match for an integer; 
-				// we don't care about normals or texture coordinates right now.
-				regex_search(slashString, indexMatch, regex("[0-9]+"));
+               // Iterating through "slash strings" (e.g. 770/936/777)
+               while (regex_search(searchStart, line.cend(), result, regex("[0-9/]+"))) {
+                    smatch indexMatch;
+                    string slashString = result[0];
 
-				// .OBJ files are 1-indexed, so we need to subtract 1 here
-				shapeIndices.push_back(stoi(indexMatch.str()) - 1);
+                    // Just get the first match for an integer; 
+                    // we don't care about normals or texture coordinates right now.
+                    regex_search(slashString, indexMatch, regex("[0-9]+"));
 
-				searchStart = result.suffix().first;
-			}
+                    // .OBJ files are 1-indexed, so we need to subtract 1 here
+                    shapeIndices.push_back(stoi(indexMatch.str()) - 1);
 
-			if (shapeIndices.size() == 3) {
-				triangles.push_back({ shapeIndices[0], shapeIndices[1], shapeIndices[2] });
-			}
-			else if (shapeIndices.size() == 4) {
-				// If we have a quad, split it into 2 triangles
-				triangles.push_back({ shapeIndices[0], shapeIndices[1], shapeIndices[2] });
-				triangles.push_back({ shapeIndices[0], shapeIndices[2], shapeIndices[3] });
-			}
-			else {
-				// The monster-quad model has a few 5-vertex faces which trigger this section.
-				cout << "Face has " << shapeIndices.size() << " vertices; skipping" << endl;
-			}
-		}
-	}
+                    searchStart = result.suffix().first;
+               }
+
+               if (shapeIndices.size() == 3) {
+                    triangles.push_back(new Triangle(shapeIndices[0], shapeIndices[1], shapeIndices[2]));
+               }
+               else if (shapeIndices.size() == 4) {
+                    // If we have a quad, split it into 2 triangles
+                    triangles.push_back(new Triangle(shapeIndices[0], shapeIndices[1], shapeIndices[2])); 
+                    triangles.push_back(new Triangle(shapeIndices[0], shapeIndices[2], shapeIndices[3]));
+               }
+               else {
+                    // The monster-quad model has a few 5-vertex faces which trigger this section.
+                    cout << "Face has " << shapeIndices.size() << " vertices; skipping" << endl;
+               }
+          }
+     }
 }
 
-Mesh::Mesh(vector<glm::vec3> vertices, vector<Triangle> triangles) {
+Mesh::Mesh(vector<glm::vec3> vertices, vector<Triangle *> triangles) {
 	this->vertices = vertices;
 	this->triangles = triangles;
 }
 
 void Mesh::draw() {
-	for each (Triangle tri in triangles) {
-		auto indices = tri.getIndices();
+	for each (Triangle *tri in triangles) {
+		auto indices = tri->getIndices();
 		
 		ofSetColor(255, 0, 255);
 		ofDrawLine(vertices.at(indices[0]), vertices.at(indices[1]));
 		ofDrawLine(vertices.at(indices[1]), vertices.at(indices[2]));
 		ofDrawLine(vertices.at(indices[2]), vertices.at(indices[0]));
 	}
+}
+
+bool Mesh::intersect(const Ray & ray, glm::vec3 & point, glm::vec3 & normal) {
+     for (Triangle *t : this->triangles) {
+          // TODO: find the first intersection?
+     }
+     return false;
 }
 
 int Mesh::polyCount() {

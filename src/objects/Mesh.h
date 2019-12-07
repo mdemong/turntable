@@ -3,6 +3,7 @@
 #include <vector>
 #include "ofMain.h"
 #include "Triangle.h"
+#include "SceneObject.h"
 
 /*
 	Mesh Class
@@ -11,9 +12,9 @@
 	Represents a triangle mesh using an indexed triangle set data structure.
 */
 
-class Mesh {
+class Mesh : public SceneObject {
 	vector<glm::vec3> vertices;
-	vector<Triangle> triangles;
+	vector<Triangle *> triangles;
 	
 
 public:
@@ -28,12 +29,14 @@ public:
 	/*
 		Constructs a triangle mesh with the given lists of vertices and triangles.
 	*/
-	Mesh(vector<glm::vec3> vertices, vector<Triangle> triangles);
+	Mesh(vector<glm::vec3> vertices, vector<Triangle *> triangles);
 
 	/*
 		Draws the Mesh.
 	*/
 	void draw();
+
+     bool intersect(const Ray &ray, glm::vec3 &point, glm::vec3 &normal);
 
 	/*
 		Returns the number of faces in this Mesh.	

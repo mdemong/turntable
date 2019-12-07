@@ -1,5 +1,7 @@
 #include "ofApp.h"
 
+// caching random values for anti-aliasing?
+
 void ofApp::setup() {
      
      ofSetBackgroundColor(0, 0, 0);
@@ -11,6 +13,10 @@ void ofApp::setup() {
      lights.push_back(new PointLight(glm::vec3(0, 3, 3), 7.0));
 
      rayTracer = RayTracer(renderCam, objects, lights);
+
+
+
+
 }
 
 void ofApp::setupCameras() {
@@ -34,13 +40,36 @@ void ofApp::setupCameras() {
 }
 
 void ofApp::setupObjects() {
+
      objects.push_back(new Sphere(glm::vec3(1, -.5, -2), 1.5, ofColor(255, 205, 150)));
      objects.push_back(new Sphere(glm::vec3(0, -1, 0), 1.0, ofColor(84, 68, 48)));
      objects.push_back(new Sphere(glm::vec3(-1, -1, 2), 1.0, ofColor(255, 230, 200)));
+
      Plane * ground = new Plane(glm::vec3(0, -2, -5), glm::vec3(0, 1, 0), ofColor::gray);
      ground->applyTexture(ofImage("textures/cardboard.jpg"));
      objects.push_back(ground);
+
+     setupMesh();
 }
+
+void ofApp::setupMesh() {
+     const float PRISM_HEIGHT = sqrtf(2.0 / 3.0) * 2;
+     vector<glm::vec3> vertices = {
+          {0, 0, 0},
+          {2, 0, 0},
+          {1, PRISM_HEIGHT, PRISM_HEIGHT / 3},
+          {1, 0, PRISM_HEIGHT}
+     };
+     vector<Triangle *> triangles = {
+          {new Triangle(0, 1, 2)},
+          {new Triangle(0, 3, 2)},
+          {new Triangle(0, 3, 1)},
+          {new Triangle(3, 1, 2)}
+     };
+
+     objects.push_back(new Mesh(vertices, triangles));
+}
+
 
 void ofApp::update() {
      
