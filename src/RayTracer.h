@@ -42,6 +42,7 @@ class RayTracer {
      */
      bool inShadow(const Ray & r);
 
+
 public:
      RayTracer();
 

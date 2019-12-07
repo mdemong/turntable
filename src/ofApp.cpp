@@ -14,9 +14,6 @@ void ofApp::setup() {
 
      rayTracer = RayTracer(renderCam, objects, lights);
 
-
-
-
 }
 
 void ofApp::setupCameras() {

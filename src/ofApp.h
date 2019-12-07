@@ -101,4 +101,5 @@ public:
      int imageWidth = 600;
      int imageHeight = 400;
 
+     Mesh mesh;
 };

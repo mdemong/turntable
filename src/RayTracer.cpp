@@ -1,5 +1,6 @@
 #include "RayTracer.h"
 
+const int SUBPIXEL_COUNT = 4;
 
 RayTracer::RayTracer() {
 
@@ -34,7 +35,6 @@ void RayTracer::draw(int imgWidth, int imgHeight) {
      ofSetColor(ofColor::white);
 }
 
-
 ofImage RayTracer::rayTrace(int imgWidth, int imgHeight) {
      ofImage outputImage = ofImage();
      outputImage.allocate(imgWidth, imgHeight, ofImageType::OF_IMAGE_COLOR);
@@ -45,16 +45,43 @@ ofImage RayTracer::rayTrace(int imgWidth, int imgHeight) {
 
           for (int j = 0; j < imgHeight; j ++) {
 
-               // These offsets are used so we send the rays from the center of the pixel.
-               float xOffset = (1.0 / (float)imgWidth) / 2.0;
-               float yOffset = (1.0 / (float)imgHeight) / 2.0;
+               // Algorithm referenced from Fundamentals of Computer Graphics, page 330
+               ofColor pixelColor = ofColor::black;
+               int red = 0, green = 0, blue = 0;
 
-               float pixelX = ((float) i / imgWidth) + xOffset;
-               float pixelY = 1 - (((float) j / imgHeight) + yOffset);
+               for (int p = 0; p < SUBPIXEL_COUNT; p++) {
+                    for (int q = 0; q < SUBPIXEL_COUNT; q++) {
+                         float rayX = (i + ((p + 0.5) / SUBPIXEL_COUNT)) / imgWidth;
+                         float rayY = 1 - ((j + ((q + 0.5) / SUBPIXEL_COUNT)) / imgHeight);
+                         Ray ray = this->cam.getRay(rayX, rayY);
+                         ofColor rayColor = getRayColor(ray);
+                         red += rayColor.r;
+                         green += rayColor.g;
+                         blue += rayColor.b;
+                    }
+               }
 
-               Ray ray = this->cam.getRay(pixelX, pixelY);
+               //cout << red << " " << green << " " << blue << endl;
 
-               outputImage.setColor(i, j, getRayColor(ray));
+               ofColor finalColor;
+               finalColor.r = red / (SUBPIXEL_COUNT * SUBPIXEL_COUNT);
+               finalColor.g = green / (SUBPIXEL_COUNT * SUBPIXEL_COUNT);
+               finalColor.b = blue / (SUBPIXEL_COUNT * SUBPIXEL_COUNT);
+
+               //cout << finalColor << endl;
+
+               outputImage.setColor(i, j, finalColor);
+
+               //// These offsets are used so we send the rays from the center of the pixel.
+               //float xOffset = (1.0 / (float)imgWidth) / 2.0;
+               //float yOffset = (1.0 / (float)imgHeight) / 2.0;
+
+               //float pixelX = ((float) i / imgWidth) + xOffset;
+               //float pixelY = 1 - (((float) j / imgHeight) + yOffset);
+
+               //Ray ray = this->cam.getRay(pixelX, pixelY);
+
+               //outputImage.setColor(i, j, getRayColor(ray));
           }
      }
      return outputImage;

@@ -120,7 +120,7 @@ void Mesh::draw() {
 
 bool Mesh::intersect(const Ray & ray, glm::vec3 & point, glm::vec3 & normal) {
      for (Triangle *t : this->triangles) {
-          // TODO: find the first intersection?
+          // TODO: somehow intersect with a mesh lol
      }
      return false;
 }
