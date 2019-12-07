@@ -98,8 +98,8 @@ public:
      ViewPlane viewPlane;
 
      // Change these if you want a different image size output
-     int imageWidth = 600;
-     int imageHeight = 400;
+     int imageWidth = 1500;
+     int imageHeight = 1000;
 
      Mesh mesh;
 };

@@ -108,10 +108,14 @@ ofColor RayTracer::getRayColor(Ray &r)
 
                     minDist2 = dist2;
 
+                    // TODO: this section could be optimized
+
                     // For now, we're just setting this pixel color to diffuseColor.
                     ofColor diffuse = obj->getColor(point);
                     color = this->ambientColor;
                     color += phong_lambert(point, normal, diffuse, obj->specularColor, this->phongPower);
+                    //color += lambert(point, normal, diffuse);
+                    //color += phong(point, normal, diffuse, obj->specularColor, this->phongPower);
                }
           }
      }
