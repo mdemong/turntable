@@ -119,11 +119,40 @@ void Mesh::draw() {
 }
 
 bool Mesh::intersect(const Ray & ray, glm::vec3 & point, glm::vec3 & normal) {
+     float minT = INFINITY;
+     bool intersected = false;
      for (Triangle *t : this->triangles) {
-          // TODO: somehow intersect with a mesh lol
+          auto indices = t->getIndices();
+
+          glm::vec3 baryPos;
+          bool hit = glm::intersectRayTriangle(ray.p, ray.d, vertices.at(indices[0]),
+               vertices.at(indices[1]), vertices.at(indices[2]), baryPos);
+
+
+          if (hit) {
+               //cout << baryPos << endl;
+
+               // used https://github.com/g-truc/glm/issues/6#issuecomment-23149870 to make sense of baryPos
+               // Apparently, the baryPos.z is not barycentric coordinates, but is instead the 
+               // t-value along the ray.
+               float t = baryPos.z;
+               if (t < minT) {
+                    minT = t;
+                    point = ray.p + ray.d * t;
+                    normal = glm::triangleNormal(vertices.at(indices[0]),
+                         vertices.at(indices[1]), vertices.at(indices[2]));
+                    intersected = true;
+               }
+          }
      }
-     return false;
+     return intersected;
 }
+
+// Adapted from https://stackoverflow.com/a/11262425
+glm::vec3 toCartesian(glm::vec3 bary, glm::vec3 p1, glm::vec3 p2, glm::vec3 p3) {
+     return glm::vec3();
+}
+
 
 int Mesh::polyCount() {
 	return triangles.size();
