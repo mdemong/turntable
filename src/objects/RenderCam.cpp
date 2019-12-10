@@ -13,8 +13,7 @@ Ray RenderCam::getRay(float u, float v) {
 	return(Ray(position, glm::normalize(pointOnPlane - position)));
 }
 
-void RenderCam::draw()
-{
+void RenderCam::draw() {
      ofPushMatrix();
      ofMultMatrix(createRotMatrix());
      ofDrawBox(1);
@@ -25,7 +24,6 @@ void RenderCam::draw()
 glm::mat4 RenderCam::createRotMatrix() {
      glm::mat4 m;
 
-     // your code goes here
      glm::vec3 w = glm::normalize(-aim);
      glm::vec3 u = glm::normalize(glm::cross({0, 1, 0}, w));
      glm::vec3 v = glm::normalize(glm::cross(w, u));
