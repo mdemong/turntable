@@ -1,6 +1,6 @@
 #include "RayTracer.h"
 
-const int SUBPIXEL_COUNT = 4;
+const int SUBPIXEL_COUNT = 2;
 
 RayTracer::RayTracer() {
 

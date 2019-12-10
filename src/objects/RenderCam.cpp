@@ -2,7 +2,7 @@
 
 RenderCam::RenderCam() {
      position = glm::vec3(0, 0, 10);
-     aim = glm::vec3(0, -.5, -1);
+     aim = glm::vec3(0, 0, -1);
 }
 
 // Get a ray from the current camera position to the (u, v) position on
@@ -18,6 +18,7 @@ void RenderCam::draw() {
      ofMultMatrix(createRotMatrix());
      ofDrawBox(1);
      ofPopMatrix();
+     //cout << view.toWorld(.5, .5) << endl;
 }
 
 // Adapted from lookAt lab example

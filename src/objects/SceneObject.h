@@ -51,6 +51,9 @@ public:
      //
      glm::mat4 rotateToVector(glm::vec3 v1, glm::vec3 v2) {
           glm::vec3 axis = glm::cross(v1, v2);
+          if (axis == glm::vec3(0, 0, 0)) {
+               return glm::mat4();
+          }
           glm::quat q = glm::angleAxis(glm::angle(v1, v2), glm::normalize(axis));
           return glm::toMat4(q);
      }

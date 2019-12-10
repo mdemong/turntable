@@ -24,6 +24,7 @@ glm::vec3 ViewPlane::toWorld(float u, float v) {
      glm::mat4 translateMtx = glm::translate(position);
      glm::vec4 result = translateMtx * m * glm::inverse(translateMtx) * glm::vec4(zAlignedPoint, 1);
      
+     //cout << m << endl;
      // cout << translateMtx << endl;
      //cout << "normal:" << normal << endl;
      //cout << zAlignedPoint << " -> " << result << endl;
