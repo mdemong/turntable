@@ -15,7 +15,10 @@ public:
 
 	Ray getRay(float u, float v);
 
-	void draw() { ofDrawBox(position, 1.0); };
+     void draw();
+
+     glm::mat4 createRotMatrix();
+
 
      // For now, assuming we can't intersect the renderCam. - Micah
      bool intersect(const Ray &ray, glm::vec3 &point, glm::vec3 &normal) { return false; }

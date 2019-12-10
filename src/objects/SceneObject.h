@@ -45,4 +45,13 @@ public:
 	ofColor specularColor = ofColor::white;
      ofImage texture;
      bool bHasTexture = false;
+
+     // Generate a rotation matrix that rotates v1 to v2
+     // v1, v2 must be normalized
+     //
+     glm::mat4 rotateToVector(glm::vec3 v1, glm::vec3 v2) {
+          glm::vec3 axis = glm::cross(v1, v2);
+          glm::quat q = glm::angleAxis(glm::angle(v1, v2), glm::normalize(axis));
+          return glm::toMat4(q);
+     }
 };
