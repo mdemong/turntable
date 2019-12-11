@@ -1,17 +1,8 @@
 
 /*
-     ofApp: Ray Tracer, Part 3
+     ofApp: Final Project: Animated Ray Tracer
      Micah Demong
 
-     This project performs a phong-lambert ray trace of a 3D scene with textures.
-     Instead of being handled in the ofApp class, the actual ray tracing in
-     the RayTracer class (RayTracer::rayTrace()). ofApp::trace() simply calls
-     this function and stores its result in an image.
-
-     SceneObject has been modified to handle textures. See SceneObject.h for more info.
-
-     Texture lookups are performed by the Plane class. We load our texture to the plane
-     in ofApp::setupObjects().
 
      Keybinds:
      F: Toggle Fullscreen
@@ -20,6 +11,7 @@
      F3: View PreviewCam
      T: Ray-Trace scene
      V: Toggle image drawing to viewport
+     X: Render and export ray-traced video
 */
 
 #pragma once

@@ -18,8 +18,8 @@ void ofApp::setup() {
      this->videoRenderCam = new RenderCam;
      videoTracer = VideoTracer(videoRenderCam, objects, lights);
 
-     this->renderCam->setPosition({ 0, 2, 10 });
-     this->renderCam->lookAt({ 0, 2, 0 });
+     this->renderCam->setPosition({ 8, 0, 8 });
+     this->renderCam->lookAt({ 0, 0, 0 });
 
 }
 
@@ -50,7 +50,7 @@ void ofApp::setupObjects() {
      //objects.push_back(new Sphere(glm::vec3(0, -1, 0), 1.0, ofColor(84, 68, 48)));
      //objects.push_back(new Sphere(glm::vec3(-1, -1, 2), 1.0, ofColor(255, 230, 200)));
 
-     Plane * ground = new Plane(glm::vec3(0, 0, 0), glm::vec3(0, 1, 0), ofColor::gray);
+     Plane * ground = new Plane(glm::vec3(0, -2, 0), glm::vec3(0, 1, 0), ofColor::gray);
      ground->applyTexture(ofImage("textures/cardboard.jpg"));
      objects.push_back(ground);
 
@@ -74,7 +74,7 @@ void ofApp::setupMesh() {
 
      //objects.push_back(new Mesh(vertices, triangles));
 
-     Mesh *mesh = new Mesh("data/geo/bunny3.obj");
+     Mesh *mesh = new Mesh("data/geo/torus.obj");
      mesh->diffuseColor = ofColor(255, 128, 255);
      cout << "Mesh size: " << mesh->size() << endl;
      cout << "Polycount:" << mesh->polyCount() << endl;
