@@ -34,6 +34,7 @@
 #include "objects/ViewPlane.h"
 #include "objects/Mesh.h"
 #include "objects/Triangle.h"
+#include "videoTracer.h"
 
 
 class ofApp : public ofBaseApp {
@@ -102,4 +103,7 @@ public:
      int imageHeight = 400;
 
      Mesh mesh;
+
+     RenderCam *videoRenderCam;
+     VideoTracer videoTracer;
 };

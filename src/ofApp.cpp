@@ -15,6 +15,9 @@ void ofApp::setup() {
      this->renderCam = new RenderCam;
      rayTracer = RayTracer(renderCam, objects, lights);
 
+     this->videoRenderCam = new RenderCam;
+     videoTracer = VideoTracer(videoRenderCam, objects, lights);
+
      this->renderCam->setPosition({ -10, 0, 10 });
      this->renderCam->lookAt({ 0, 0, 5 });
      this->renderCam->lookAt({ -6, -2, 20 });
@@ -99,6 +102,8 @@ void ofApp::draw() {
      renderCam->view.drawWireframe(6, 4);
      renderCam->draw();
      rayTracer.draw(6, 4);
+
+     videoTracer.draw(6, 4);
      
      currentCam->end();
 
