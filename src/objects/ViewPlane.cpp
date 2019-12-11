@@ -6,7 +6,7 @@ ViewPlane::ViewPlane() {                         // create reasonable defaults (
      position = glm::vec3(0, 0, 5);
 
      // Viewplane modified to allow arbitrary rotation  -Micah
-     normal = glm::vec3(0, .5, 1);
+     normal = glm::vec3(0, 0, 1);
 }
 
 // Convert (u, v) to (x, y, z) 

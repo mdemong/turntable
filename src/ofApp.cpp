@@ -15,7 +15,9 @@ void ofApp::setup() {
      this->renderCam = new RenderCam;
      rayTracer = RayTracer(renderCam, objects, lights);
 
-     this->renderCam->setPosition({ 10, 0, 0 });
+     this->renderCam->setPosition({ -10, 0, 10 });
+     this->renderCam->lookAt({ 0, 0, 5 });
+     this->renderCam->lookAt({ -6, -2, 20 });
      this->renderCam->lookAt({ 0, 0, 0 });
 
 }
@@ -47,7 +49,7 @@ void ofApp::setupObjects() {
      objects.push_back(new Sphere(glm::vec3(0, -1, 0), 1.0, ofColor(84, 68, 48)));
      objects.push_back(new Sphere(glm::vec3(-1, -1, 2), 1.0, ofColor(255, 230, 200)));
 
-     Plane * ground = new Plane(glm::vec3(0, -2, -5), glm::vec3(0, 1, 0), ofColor::gray);
+     Plane * ground = new Plane(glm::vec3(0, -2, 0), glm::vec3(0, 1, 0), ofColor::gray);
      ground->applyTexture(ofImage("textures/cardboard.jpg"));
      objects.push_back(ground);
 
