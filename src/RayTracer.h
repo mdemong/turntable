@@ -16,7 +16,6 @@
 
 
 class RayTracer {
-     RenderCam *cam;
      vector<SceneObject *> objects;
      vector<Light *> lights;
      float phongPower = 50;
@@ -42,6 +41,7 @@ class RayTracer {
      */
      bool inShadow(const Ray & r);
 
+     RenderCam *cam;
 
 public:
      RayTracer();
@@ -62,6 +62,8 @@ public:
           Draws simplified representation of this ray tracer using oF draw calls.
      */
      void draw(int imgWidth, int imgHeight);
+     void setPosition(glm::vec3 position) { this->cam->setPosition(position); }
+     void lookAt(glm::vec3 lookVector) { this->cam->lookAt(lookVector); }
 
 };
 
