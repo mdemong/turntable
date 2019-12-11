@@ -15,7 +15,8 @@ void ofApp::setup() {
      this->renderCam = new RenderCam;
      rayTracer = RayTracer(renderCam, objects, lights);
 
-     this->renderCam->setPosition({ 5, 0, 10 });
+     this->renderCam->setPosition({ 10, 0, 0 });
+     this->renderCam->lookAt({ 0, 0, 0 });
 
 }
 

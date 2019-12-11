@@ -6,7 +6,7 @@ ViewPlane::ViewPlane() {                         // create reasonable defaults (
      position = glm::vec3(0, 0, 5);
 
      // Viewplane modified to allow arbitrary rotation  -Micah
-     normal = glm::vec3(0, 0, 1);
+     normal = glm::vec3(0, .5, 1);
 }
 
 // Convert (u, v) to (x, y, z) 
@@ -19,7 +19,7 @@ glm::vec3 ViewPlane::toWorld(float u, float v) {
      //float angle = glm::angle(normal, { 0, 0, -1 });
 
      //glm::mat4 m = glm::toMat4(glm::rotation({ 0, 0, 1 }, normal));
-     glm::vec3 zAlignedPoint = {(u * w) + min.x, (v * h) + min.y, position.z};
+     glm::vec3 zAlignedPoint = {(u * w) + min.x + position.x, (v * h) + min.y + position.y, position.z};
      glm::mat4 m = rotateToVector({0, 0, 1}, glm::normalize(normal));
      glm::mat4 translateMtx = glm::translate(position);
      glm::vec4 result = translateMtx * m * glm::inverse(translateMtx) * glm::vec4(zAlignedPoint, 1);

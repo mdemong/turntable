@@ -57,4 +57,17 @@ public:
           glm::quat q = glm::angleAxis(glm::angle(v1, v2), glm::normalize(axis));
           return glm::toMat4(q);
      }
+
+     glm::mat4 SceneObject::lookAtMatrix(const glm::vec3 &pos, const glm::vec3 &aimPos, glm::vec3 upVector) {
+          glm::mat4 m;
+
+          glm::vec3 g = aimPos - pos;
+          glm::vec3 w = glm::normalize(-g);
+          glm::vec3 u = glm::normalize(glm::cross(upVector, w));
+          glm::vec3 v = glm::normalize(glm::cross(w, u));
+
+          m = { {u, 0}, {v, 0}, {w, 0}, {pos, 1} };
+
+          return m;
+     }
 };

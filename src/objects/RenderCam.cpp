@@ -36,6 +36,12 @@ glm::mat4 RenderCam::createRotMatrix() {
 
 void RenderCam::lookAt(glm::vec3 lookPosition)
 {
+     float viewDistance = glm::distance(view.position, this->position);
+     glm::vec3 direction = glm::normalize(lookPosition - this->position);
+     glm::mat4 lookMtx = lookAtMatrix(this->position, lookPosition, { 0, 1, 0 });
+     view.position = this->position + viewDistance * direction;
+     glm::vec4 newNormal = lookMtx * glm::vec4 (view.normal, 1);
+     view.normal = { newNormal.x, newNormal.y, newNormal.z };
 }
 
 void RenderCam::setPosition(glm::vec3 position)
