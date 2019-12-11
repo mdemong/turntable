@@ -5,6 +5,7 @@
 // BVH tree
 // Referenced from Fundamentals of Computer Graphics, 4th ed.
 
+// This has not yet been integrated into the project.
 
 class BVHNode :
      public SceneObject

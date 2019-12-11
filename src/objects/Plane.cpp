@@ -66,8 +66,8 @@ ofColor Plane::getColor(glm::vec3 point) {
 }
 
 ofColor Plane::getTextureColor(float u, float v) {
-     int i = u * texture.getWidth() - 1;
-     int j = v * texture.getHeight() - 1;
+     int i = fmod(u * texture.getWidth(), texture.getWidth());
+     int j = fmod(v * texture.getHeight(), texture.getHeight());
      return texture.getColor(i, j);
 }
 

@@ -114,7 +114,7 @@ void Mesh::draw() {
 	for each (Triangle *tri in triangles) {
 		auto indices = tri->getIndices();
 		
-		ofSetColor(255, 0, 255);
+		ofSetColor(this->diffuseColor);
 		ofDrawLine(vertices.at(indices[0]), vertices.at(indices[1]));
 		ofDrawLine(vertices.at(indices[1]), vertices.at(indices[2]));
 		ofDrawLine(vertices.at(indices[2]), vertices.at(indices[0]));
