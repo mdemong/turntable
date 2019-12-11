@@ -24,7 +24,7 @@ void VideoTracer::renderVideo() {
           ss << this->outputDir << this->filePrefix
                << std::setfill('0') << std::setw(4)
                << currentFrame << fileType;
-          frameOut.save(ss.str);
+          frameOut.save(ss.str());
 
           // increment things
           currentAngle += thetaPerFrame;

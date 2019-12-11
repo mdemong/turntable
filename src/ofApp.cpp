@@ -152,6 +152,10 @@ void ofApp::keyPressed(int key) {
      case 'v':
           bShowImage = !bShowImage;
           break;
+     case 'x':
+     case 'X':
+          videoTracer.renderVideo();
+          break;
      }
 }
 
