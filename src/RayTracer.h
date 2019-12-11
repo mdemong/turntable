@@ -16,7 +16,7 @@
 
 
 class RayTracer {
-     RenderCam cam;
+     RenderCam *cam;
      vector<SceneObject *> objects;
      vector<Light *> lights;
      float phongPower = 50;
@@ -49,7 +49,7 @@ public:
      /*
           Constructs a ray tracer from the given camera, Object vector, and Light vector.
      */
-	RayTracer(RenderCam cam, vector<SceneObject *> objects, vector<Light *> lights);
+	RayTracer(RenderCam *cam, vector<SceneObject *> objects, vector<Light *> lights);
 
      /*
           Creates a ray-traced image of the scene with the given width and height.

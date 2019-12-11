@@ -7,7 +7,7 @@ RayTracer::RayTracer() {
 }
 
 
-RayTracer::RayTracer(RenderCam cam, vector<SceneObject *> objects, vector<Light *> lights) {
+RayTracer::RayTracer(RenderCam *cam, vector<SceneObject *> objects, vector<Light *> lights) {
      this->cam = cam;
      this->objects = objects;
      this->lights = lights;
@@ -27,7 +27,7 @@ void RayTracer::draw(int imgWidth, int imgHeight) {
 
      for (float i = initWidth; i < 1; i += widthIncrement) {
           for (float j = initHeight; j < 1; j += heightIncrement) {
-               Ray r = this->cam.getRay(i, j);
+               Ray r = this->cam->getRay(i, j);
                r.draw(10);
           }
      }
@@ -59,7 +59,7 @@ ofImage RayTracer::rayTrace(int imgWidth, int imgHeight) {
                     for (int q = 0; q < SUBPIXEL_COUNT; q++) {
                          float rayX = (i + ((p + 0.5) / SUBPIXEL_COUNT)) / imgWidth;
                          float rayY = 1 - ((j + ((q + 0.5) / SUBPIXEL_COUNT)) / imgHeight);
-                         Ray ray = this->cam.getRay(rayX, rayY);
+                         Ray ray = this->cam->getRay(rayX, rayY);
                          ofColor rayColor = getRayColor(ray);
                          red += rayColor.r;
                          green += rayColor.g;
@@ -112,7 +112,7 @@ ofColor RayTracer::getRayColor(Ray &r)
 
           if (intersected) {
 
-               float dist2 = glm::distance2(point, cam.position);
+               float dist2 = glm::distance2(point, cam->position);
 
                if (dist2 < minDist2) {
 
@@ -151,7 +151,7 @@ ofColor RayTracer::lambert(const glm::vec3 & p, const glm::vec3 & norm, const of
 ofColor RayTracer::phong(const glm::vec3 & p, const glm::vec3 & norm, const ofColor diffuse, const ofColor specular, float power) {
      ofColor phongColor = ofColor::black;
      for (auto light : this->lights) {
-          glm::vec3 v = glm::normalize(cam.position - p);
+          glm::vec3 v = glm::normalize(cam->position - p);
           glm::vec3 l = glm::normalize(light->position - p);
           glm::vec3 h = bisector(v, l);
           float illumination = light->getIllumination(p);
@@ -164,7 +164,7 @@ ofColor RayTracer::phong_lambert(const glm::vec3 & p, const glm::vec3 & norm, co
      ofColor lambertColor = ofColor::black;
      ofColor phongColor = ofColor::black;
      for (auto light : this->lights) {
-          glm::vec3 v = glm::normalize(cam.position - p);
+          glm::vec3 v = glm::normalize(cam->position - p);
           glm::vec3 l = glm::normalize(light->position - p);
           glm::vec3 h = bisector(v, l);
           float illumination = light->getIllumination(p);

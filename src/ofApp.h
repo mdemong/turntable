@@ -89,13 +89,13 @@ public:
      ofCamera *currentCam;    // set to current camera either easyCam or sideCam
 
      // set up one render camera to render image through
-     RenderCam renderCam;
+     RenderCam *renderCam;
      ofImage image;
      RayTracer rayTracer;
 
      vector<SceneObject *> objects;
      vector<Light *> lights;
-     ViewPlane viewPlane;
+     //ViewPlane viewPlane;
 
      // Change these if you want a different image size output
      int imageWidth = 600;

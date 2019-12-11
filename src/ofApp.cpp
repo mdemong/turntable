@@ -12,7 +12,10 @@ void ofApp::setup() {
      lights.push_back(new PointLight(glm::vec3(3, 1, 5), 5.0));
      lights.push_back(new PointLight(glm::vec3(0, 3, 3), 7.0));
 
+     this->renderCam = new RenderCam;
      rayTracer = RayTracer(renderCam, objects, lights);
+
+     this->renderCam->setPosition({ 5, 0, 10 });
 
 }
 
@@ -34,19 +37,20 @@ void ofApp::setupCameras() {
      previewCam.setNearClip(0.01);
      previewCam.setFov(55);
 
+
 }
 
 void ofApp::setupObjects() {
 
-     //objects.push_back(new Sphere(glm::vec3(1, -.5, -2), 1.5, ofColor(255, 205, 150)));
-     //objects.push_back(new Sphere(glm::vec3(0, -1, 0), 1.0, ofColor(84, 68, 48)));
-    // objects.push_back(new Sphere(glm::vec3(-1, -1, 2), 1.0, ofColor(255, 230, 200)));
+     objects.push_back(new Sphere(glm::vec3(1, -.5, -2), 1.5, ofColor(255, 205, 150)));
+     objects.push_back(new Sphere(glm::vec3(0, -1, 0), 1.0, ofColor(84, 68, 48)));
+     objects.push_back(new Sphere(glm::vec3(-1, -1, 2), 1.0, ofColor(255, 230, 200)));
 
      Plane * ground = new Plane(glm::vec3(0, -2, -5), glm::vec3(0, 1, 0), ofColor::gray);
      ground->applyTexture(ofImage("textures/cardboard.jpg"));
      objects.push_back(ground);
 
-     setupMesh();
+     //setupMesh();
 }
 
 void ofApp::setupMesh() {
@@ -89,8 +93,8 @@ void ofApp::draw() {
      }
 
      drawAxes();
-     viewPlane.drawWireframe(6, 4);
-     renderCam.draw();
+     renderCam->view.drawWireframe(6, 4);
+     renderCam->draw();
      rayTracer.draw(6, 4);
      
      currentCam->end();

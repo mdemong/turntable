@@ -33,3 +33,14 @@ glm::mat4 RenderCam::createRotMatrix() {
 
      return m;
 }
+
+void RenderCam::lookAt(glm::vec3 lookPosition)
+{
+}
+
+void RenderCam::setPosition(glm::vec3 position)
+{
+     glm::vec3 viewDisplacement = view.position - this->position;
+     this->position = position;
+     view.position = position + viewDisplacement;
+}
