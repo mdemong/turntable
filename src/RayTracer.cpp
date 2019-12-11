@@ -36,6 +36,12 @@ void RayTracer::draw(int imgWidth, int imgHeight) {
 }
 
 ofImage RayTracer::rayTrace(int imgWidth, int imgHeight) {
+
+     std::clock_t start;
+     double duration;
+
+     start = std::clock();
+
      ofImage outputImage = ofImage();
      outputImage.allocate(imgWidth, imgHeight, ofImageType::OF_IMAGE_COLOR);
 
@@ -84,6 +90,10 @@ ofImage RayTracer::rayTrace(int imgWidth, int imgHeight) {
                //outputImage.setColor(i, j, getRayColor(ray));
           }
      }
+
+     duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;
+     std::cout << "raytrace took " << duration << " seconds" << endl;
+
      return outputImage;
 }
 

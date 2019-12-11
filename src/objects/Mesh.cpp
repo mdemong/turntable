@@ -27,6 +27,9 @@ Mesh::Mesh(string filepath)
 
 	ifstream meshFile;
 	meshFile.open(filepath);
+     if (!meshFile.is_open()) {
+          cout << "Failed to open " << filepath << endl;
+     }
 	string line;
 
 	while (getline(meshFile, line)) {
@@ -35,7 +38,7 @@ Mesh::Mesh(string filepath)
 		// and the Strings/Regex section of "A Tour of C++" by Bjarne Stroustrup
 
 		// Vertices
-		if (regex_match(line, regex("v(-?[ .0-9])"))) {
+		if (regex_match(line, regex("v((-?[ .0-9])([eE][-+]?\d+)?)+"))) {
 
 			// cout << "VERTEX " << line << endl;
 
@@ -45,7 +48,7 @@ Mesh::Mesh(string filepath)
 			smatch result;
 
 			// Iterating through vertex float values on this line
-			while (regex_search(searchStart, line.cend(), result, regex("(-?[0-9.])+"))) {
+			while (regex_search(searchStart, line.cend(), result, regex("(-?[0-9.])+([eE][-+]?\d+)?"))) {
 				coordinates.push_back(stof(result.str()));
 
 				searchStart = result.suffix().first;
@@ -150,6 +153,7 @@ bool Mesh::intersect(const Ray & ray, glm::vec3 & point, glm::vec3 & normal) {
 
 // Adapted from https://stackoverflow.com/a/11262425
 glm::vec3 toCartesian(glm::vec3 bary, glm::vec3 p1, glm::vec3 p2, glm::vec3 p3) {
+     // TODO if needed
      return glm::vec3();
 }
 

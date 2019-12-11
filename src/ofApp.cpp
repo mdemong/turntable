@@ -38,9 +38,9 @@ void ofApp::setupCameras() {
 
 void ofApp::setupObjects() {
 
-     objects.push_back(new Sphere(glm::vec3(1, -.5, -2), 1.5, ofColor(255, 205, 150)));
-     objects.push_back(new Sphere(glm::vec3(0, -1, 0), 1.0, ofColor(84, 68, 48)));
-     objects.push_back(new Sphere(glm::vec3(-1, -1, 2), 1.0, ofColor(255, 230, 200)));
+     //objects.push_back(new Sphere(glm::vec3(1, -.5, -2), 1.5, ofColor(255, 205, 150)));
+     //objects.push_back(new Sphere(glm::vec3(0, -1, 0), 1.0, ofColor(84, 68, 48)));
+    // objects.push_back(new Sphere(glm::vec3(-1, -1, 2), 1.0, ofColor(255, 230, 200)));
 
      Plane * ground = new Plane(glm::vec3(0, -2, -5), glm::vec3(0, 1, 0), ofColor::gray);
      ground->applyTexture(ofImage("textures/cardboard.jpg"));
@@ -64,7 +64,11 @@ void ofApp::setupMesh() {
           {new Triangle(3, 1, 2)}
      };
 
-     objects.push_back(new Mesh(vertices, triangles));
+     //objects.push_back(new Mesh(vertices, triangles));
+
+     Mesh *bunny = new Mesh("data/geo/torus.obj");
+     cout << "Mesh size: " << bunny->size() << endl;
+     objects.push_back(bunny);
 }
 
 
